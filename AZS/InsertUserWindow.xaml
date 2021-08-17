@@ -1,0 +1,78 @@
+﻿<Window x:Class="AZS.InsertUserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AZS"
+        mc:Ignorable="d"
+        Icon="C:\Users\locadm\Desktop\Курс\AZS\AZS\Ico\Logo.ico"
+
+        Title="Добавление пользователя" Height="300" Width="250" WindowStartupLocation="CenterScreen">
+    
+    <Window.Resources>
+
+        <SolidColorBrush x:Key="brushWatermarkBackground" Color="White" />
+        <SolidColorBrush x:Key="brushWatermarkForeground" Color="LightSteelBlue" />
+        <SolidColorBrush x:Key="brushWatermarkBorder" Color="Indigo" />
+
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        <Style x:Key="EntryFieldStyle" TargetType="Grid" >
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+    </Window.Resources>
+
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="{StaticResource brushWatermarkBackground}" Style="{StaticResource EntryFieldStyle}" >
+            <TextBlock Margin="5,2" Text="Имя" Foreground="{StaticResource brushWatermarkForeground}"
+                       Visibility="{Binding ElementName=FirstNameTB, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox Name="FirstNameTB" Background="Transparent" BorderBrush="{StaticResource brushWatermarkBorder}" />
+        </Grid>
+        
+        <Grid Grid.Row="1" Background="{StaticResource brushWatermarkBackground}" Style="{StaticResource EntryFieldStyle}" >
+            <TextBlock Margin="5,2" Text="Фамилия" Foreground="{StaticResource brushWatermarkForeground}"
+                       Visibility="{Binding ElementName=MiddleNameTB, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox Name="MiddleNameTB" Background="Transparent" BorderBrush="{StaticResource brushWatermarkBorder}" />
+        </Grid>
+        
+        <Grid Grid.Row="2" Background="{StaticResource brushWatermarkBackground}" Style="{StaticResource EntryFieldStyle}" >
+            <TextBlock Margin="5,2" Text="Отчество" Foreground="{StaticResource brushWatermarkForeground}"
+                       Visibility="{Binding ElementName=LastNameTB, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox Name="LastNameTB" Background="Transparent" BorderBrush="{StaticResource brushWatermarkBorder}" />
+        </Grid>
+        
+        <Grid Grid.Row="3" Background="{StaticResource brushWatermarkBackground}" Style="{StaticResource EntryFieldStyle}" >
+            <TextBlock Margin="5,2" Text="Логин" Foreground="{StaticResource brushWatermarkForeground}"
+                       Visibility="{Binding ElementName=LoginTB, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox Name="LoginTB" Background="Transparent" BorderBrush="{StaticResource brushWatermarkBorder}" />
+        </Grid>
+
+        <Grid Grid.Row="4" Background="{StaticResource brushWatermarkBackground}" Style="{StaticResource EntryFieldStyle}" >
+            <TextBlock Margin="5,2" Text="Пароль" Foreground="{StaticResource brushWatermarkForeground}"
+                       Visibility="{Binding ElementName=PasswordPB, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox Name="PasswordPB" Background="Transparent" BorderBrush="{StaticResource brushWatermarkBorder}" />
+        </Grid>
+
+
+        <Grid Grid.Row="5" Background="{StaticResource brushWatermarkBackground}" Style="{StaticResource EntryFieldStyle}" >
+            <TextBlock Margin="5,2" Text="Должность" Foreground="{StaticResource brushWatermarkForeground}"
+                       Visibility="{Binding ElementName=RoleIDTB, Path=Text.IsEmpty, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <TextBox Name="RoleIDTB" Background="Transparent" BorderBrush="{StaticResource brushWatermarkBorder}" />
+        </Grid>
+
+        <Button Grid.Row="6" x:Name="InsertUser" Click="InsertUser_Click" Height="30">Добавить</Button>
+    </Grid>
+</Window>

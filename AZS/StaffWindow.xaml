@@ -1,0 +1,87 @@
+﻿<Window x:Class="AZS.StaffWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AZS"
+        xmlns:dvc="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+        mc:Ignorable="d"
+        Icon="C:\Users\locadm\Desktop\Курс\AZS\AZS\Ico\Logo.ico"
+        Title="Окно сотрудника" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <TabControl>
+
+
+            <TabItem x:Name="GasStation">
+                <TabItem.Header>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="3">Бензоколонки</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <ListView x:Name="Gas">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="{Binding Name}"></Label>
+                                        <Label Content="{Binding CountPetrol}"></Label>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                    <WindowsFormsHost Grid.Column="1">
+                        <dvc:Chart x:Name="charting"></dvc:Chart>
+                    </WindowsFormsHost>
+                </Grid>
+            </TabItem>
+
+
+
+
+            <TabItem x:Name="GasOrder">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="3">Заказанное<LineBreak/> топливо</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <DataGrid AutoGenerateColumns="False" x:Name="OptionGrid" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Номер заказа" Binding="{Binding IdOrder}" Width="100"/>
+                            <DataGridTextColumn Header="Комментарий" Binding="{Binding Comment}" Width="100" />
+                        </DataGrid.Columns>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{Binding FullOrderDetails}"></Label>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            
+            
+            
+            <TabItem x:Name="Other">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>Прочие <LineBreak/> функции</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <TextBlock>
+                            <Hyperlink x:Name="ReLog" Click="ReLog_Click">Смена пользователя</Hyperlink>
+                    </TextBlock>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+        
+    </Grid>
+</Window>

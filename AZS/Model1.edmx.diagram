@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0baac4446c5f4404a8651149584dfef2" Name="Diagram1" ZoomLevel="93">
+        <EntityTypeShape EntityType="АЗСModel.DetailsOrdersSupply" Width="1.5" PointX="10.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="АЗСModel.GasStation" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="АЗСModel.OrdersFromClient" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="АЗСModel.OrdersFromSupplier" Width="2.125" PointX="8.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="АЗСModel.Petrol" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="АЗСModel.Role" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="АЗСModel.Supplier" Width="1.5" PointX="6" PointY="8.875" IsExpanded="true" />
+        <AssociationConnector Association="АЗСModel.FK_DetailsOrdersSupplies_OrdersFromSuppliers" ManuallyRouted="false" />
+        <AssociationConnector Association="АЗСModel.FK_DetailsOrdersSupplies_Petrol" ManuallyRouted="false" />
+        <AssociationConnector Association="АЗСModel.FK_OrdersFromClients_GasStation" ManuallyRouted="false" />
+        <AssociationConnector Association="АЗСModel.FK_OrdersFromClients_Petrol" ManuallyRouted="false" />
+        <AssociationConnector Association="АЗСModel.FK_OrdersFromSuppliers_Suppliers" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="АЗСModel.User" Width="1.5" PointX="3" PointY="3.5" />
+        <AssociationConnector Association="АЗСModel.FK_OrdersFromClients_Users" />
+        <AssociationConnector Association="АЗСModel.FK_OrdersFromSuppliers_Users" />
+        <AssociationConnector Association="АЗСModel.FK_Users_Roles" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

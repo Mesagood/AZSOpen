@@ -1,0 +1,554 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="АЗСModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DetailsOrdersSupplies">
+          <Key>
+            <PropertyRef Name="IdDetailOrder" />
+          </Key>
+          <Property Name="IdDetailOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdOrder" Type="int" Nullable="false" />
+          <Property Name="IdPetrol" Type="int" Nullable="false" />
+          <Property Name="PetrolCount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GasStation">
+          <Key>
+            <PropertyRef Name="IdGasStation" />
+          </Key>
+          <Property Name="IdGasStation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CountPetrol" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrdersFromClients">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+          </Key>
+          <Property Name="IdOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="IdPetrol" Type="int" Nullable="false" />
+          <Property Name="CountPetrol" Type="int" Nullable="false" />
+          <Property Name="IdGasStation" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrdersFromSuppliers">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+          </Key>
+          <Property Name="IdOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSupplier" Type="int" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Petrol">
+          <Key>
+            <PropertyRef Name="IdPetrol" />
+          </Key>
+          <Property Name="IdPetrol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="IdRole" />
+          </Key>
+          <Property Name="IdRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="IdSupplier" />
+          </Key>
+          <Property Name="IdSupplier" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdRole" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DetailsOrdersSupplies_OrdersFromSuppliers">
+          <End Role="OrdersFromSuppliers" Type="Self.OrdersFromSuppliers" Multiplicity="1" />
+          <End Role="DetailsOrdersSupplies" Type="Self.DetailsOrdersSupplies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdersFromSuppliers">
+              <PropertyRef Name="IdOrder" />
+            </Principal>
+            <Dependent Role="DetailsOrdersSupplies">
+              <PropertyRef Name="IdOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailsOrdersSupplies_Petrol">
+          <End Role="Petrol" Type="Self.Petrol" Multiplicity="1" />
+          <End Role="DetailsOrdersSupplies" Type="Self.DetailsOrdersSupplies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Petrol">
+              <PropertyRef Name="IdPetrol" />
+            </Principal>
+            <Dependent Role="DetailsOrdersSupplies">
+              <PropertyRef Name="IdPetrol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersFromClients_GasStation">
+          <End Role="GasStation" Type="Self.GasStation" Multiplicity="1" />
+          <End Role="OrdersFromClients" Type="Self.OrdersFromClients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GasStation">
+              <PropertyRef Name="IdGasStation" />
+            </Principal>
+            <Dependent Role="OrdersFromClients">
+              <PropertyRef Name="IdGasStation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersFromClients_Petrol">
+          <End Role="Petrol" Type="Self.Petrol" Multiplicity="1" />
+          <End Role="OrdersFromClients" Type="Self.OrdersFromClients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Petrol">
+              <PropertyRef Name="IdPetrol" />
+            </Principal>
+            <Dependent Role="OrdersFromClients">
+              <PropertyRef Name="IdPetrol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersFromClients_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="OrdersFromClients" Type="Self.OrdersFromClients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="OrdersFromClients">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersFromSuppliers_Suppliers">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
+          <End Role="OrdersFromSuppliers" Type="Self.OrdersFromSuppliers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="IdSupplier" />
+            </Principal>
+            <Dependent Role="OrdersFromSuppliers">
+              <PropertyRef Name="IdSupplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersFromSuppliers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="OrdersFromSuppliers" Type="Self.OrdersFromSuppliers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="OrdersFromSuppliers">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="IdRole" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="АЗСModelStoreContainer">
+          <EntitySet Name="DetailsOrdersSupplies" EntityType="Self.DetailsOrdersSupplies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GasStation" EntityType="Self.GasStation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdersFromClients" EntityType="Self.OrdersFromClients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdersFromSuppliers" EntityType="Self.OrdersFromSuppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Petrol" EntityType="Self.Petrol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DetailsOrdersSupplies_OrdersFromSuppliers" Association="Self.FK_DetailsOrdersSupplies_OrdersFromSuppliers">
+            <End Role="OrdersFromSuppliers" EntitySet="OrdersFromSuppliers" />
+            <End Role="DetailsOrdersSupplies" EntitySet="DetailsOrdersSupplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailsOrdersSupplies_Petrol" Association="Self.FK_DetailsOrdersSupplies_Petrol">
+            <End Role="Petrol" EntitySet="Petrol" />
+            <End Role="DetailsOrdersSupplies" EntitySet="DetailsOrdersSupplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersFromClients_GasStation" Association="Self.FK_OrdersFromClients_GasStation">
+            <End Role="GasStation" EntitySet="GasStation" />
+            <End Role="OrdersFromClients" EntitySet="OrdersFromClients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersFromClients_Petrol" Association="Self.FK_OrdersFromClients_Petrol">
+            <End Role="Petrol" EntitySet="Petrol" />
+            <End Role="OrdersFromClients" EntitySet="OrdersFromClients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersFromClients_Users" Association="Self.FK_OrdersFromClients_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="OrdersFromClients" EntitySet="OrdersFromClients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersFromSuppliers_Suppliers" Association="Self.FK_OrdersFromSuppliers_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="OrdersFromSuppliers" EntitySet="OrdersFromSuppliers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersFromSuppliers_Users" Association="Self.FK_OrdersFromSuppliers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="OrdersFromSuppliers" EntitySet="OrdersFromSuppliers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="АЗСModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DetailsOrdersSupply">
+          <Key>
+            <PropertyRef Name="IdDetailOrder" />
+          </Key>
+          <Property Name="IdDetailOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdOrder" Type="Int32" Nullable="false" />
+          <Property Name="IdPetrol" Type="Int32" Nullable="false" />
+          <Property Name="PetrolCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OrdersFromSupplier" Relationship="Self.FK_DetailsOrdersSupplies_OrdersFromSuppliers" FromRole="DetailsOrdersSupplies" ToRole="OrdersFromSuppliers" />
+          <NavigationProperty Name="Petrol" Relationship="Self.FK_DetailsOrdersSupplies_Petrol" FromRole="DetailsOrdersSupplies" ToRole="Petrol" />
+        </EntityType>
+        <EntityType Name="GasStation">
+          <Key>
+            <PropertyRef Name="IdGasStation" />
+          </Key>
+          <Property Name="IdGasStation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CountPetrol" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OrdersFromClients" Relationship="Self.FK_OrdersFromClients_GasStation" FromRole="GasStation" ToRole="OrdersFromClients" />
+        </EntityType>
+        <EntityType Name="OrdersFromClient">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+          </Key>
+          <Property Name="IdOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="IdPetrol" Type="Int32" Nullable="false" />
+          <Property Name="CountPetrol" Type="Int32" Nullable="false" />
+          <Property Name="IdGasStation" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GasStation" Relationship="Self.FK_OrdersFromClients_GasStation" FromRole="OrdersFromClients" ToRole="GasStation" />
+          <NavigationProperty Name="Petrol" Relationship="Self.FK_OrdersFromClients_Petrol" FromRole="OrdersFromClients" ToRole="Petrol" />
+          <NavigationProperty Name="User" Relationship="АЗСModel.FK_OrdersFromClients_Users" FromRole="OrdersFromClient" ToRole="User" />
+        </EntityType>
+        <EntityType Name="OrdersFromSupplier">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+          </Key>
+          <Property Name="IdOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSupplier" Type="Int32" Nullable="false" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DetailsOrdersSupplies" Relationship="Self.FK_DetailsOrdersSupplies_OrdersFromSuppliers" FromRole="OrdersFromSuppliers" ToRole="DetailsOrdersSupplies" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK_OrdersFromSuppliers_Suppliers" FromRole="OrdersFromSuppliers" ToRole="Suppliers" />
+          <NavigationProperty Name="User" Relationship="АЗСModel.FK_OrdersFromSuppliers_Users" FromRole="OrdersFromSupplier" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Petrol">
+          <Key>
+            <PropertyRef Name="IdPetrol" />
+          </Key>
+          <Property Name="IdPetrol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DetailsOrdersSupplies" Relationship="Self.FK_DetailsOrdersSupplies_Petrol" FromRole="Petrol" ToRole="DetailsOrdersSupplies" />
+          <NavigationProperty Name="OrdersFromClients" Relationship="Self.FK_OrdersFromClients_Petrol" FromRole="Petrol" ToRole="OrdersFromClients" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IdRole" />
+          </Key>
+          <Property Name="IdRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="АЗСModel.FK_Users_Roles" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="IdSupplier" />
+          </Key>
+          <Property Name="IdSupplier" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="OrdersFromSuppliers" Relationship="Self.FK_OrdersFromSuppliers_Suppliers" FromRole="Suppliers" ToRole="OrdersFromSuppliers" />
+        </EntityType>
+        <Association Name="FK_DetailsOrdersSupplies_OrdersFromSuppliers">
+          <End Role="OrdersFromSuppliers" Type="Self.OrdersFromSupplier" Multiplicity="1" />
+          <End Role="DetailsOrdersSupplies" Type="Self.DetailsOrdersSupply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdersFromSuppliers">
+              <PropertyRef Name="IdOrder" />
+            </Principal>
+            <Dependent Role="DetailsOrdersSupplies">
+              <PropertyRef Name="IdOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailsOrdersSupplies_Petrol">
+          <End Role="Petrol" Type="Self.Petrol" Multiplicity="1" />
+          <End Role="DetailsOrdersSupplies" Type="Self.DetailsOrdersSupply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Petrol">
+              <PropertyRef Name="IdPetrol" />
+            </Principal>
+            <Dependent Role="DetailsOrdersSupplies">
+              <PropertyRef Name="IdPetrol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersFromClients_GasStation">
+          <End Role="GasStation" Type="Self.GasStation" Multiplicity="1" />
+          <End Role="OrdersFromClients" Type="Self.OrdersFromClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GasStation">
+              <PropertyRef Name="IdGasStation" />
+            </Principal>
+            <Dependent Role="OrdersFromClients">
+              <PropertyRef Name="IdGasStation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersFromClients_Petrol">
+          <End Role="Petrol" Type="Self.Petrol" Multiplicity="1" />
+          <End Role="OrdersFromClients" Type="Self.OrdersFromClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Petrol">
+              <PropertyRef Name="IdPetrol" />
+            </Principal>
+            <Dependent Role="OrdersFromClients">
+              <PropertyRef Name="IdPetrol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersFromSuppliers_Suppliers">
+          <End Role="Suppliers" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="OrdersFromSuppliers" Type="Self.OrdersFromSupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="IdSupplier" />
+            </Principal>
+            <Dependent Role="OrdersFromSuppliers">
+              <PropertyRef Name="IdSupplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="АЗСEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DetailsOrdersSupplies" EntityType="Self.DetailsOrdersSupply" />
+          <EntitySet Name="GasStations" EntityType="Self.GasStation" />
+          <EntitySet Name="OrdersFromClients" EntityType="Self.OrdersFromClient" />
+          <EntitySet Name="OrdersFromSuppliers" EntityType="Self.OrdersFromSupplier" />
+          <EntitySet Name="Petrols" EntityType="Self.Petrol" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+          <AssociationSet Name="FK_DetailsOrdersSupplies_OrdersFromSuppliers" Association="Self.FK_DetailsOrdersSupplies_OrdersFromSuppliers">
+            <End Role="OrdersFromSuppliers" EntitySet="OrdersFromSuppliers" />
+            <End Role="DetailsOrdersSupplies" EntitySet="DetailsOrdersSupplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailsOrdersSupplies_Petrol" Association="Self.FK_DetailsOrdersSupplies_Petrol">
+            <End Role="Petrol" EntitySet="Petrols" />
+            <End Role="DetailsOrdersSupplies" EntitySet="DetailsOrdersSupplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersFromClients_GasStation" Association="Self.FK_OrdersFromClients_GasStation">
+            <End Role="GasStation" EntitySet="GasStations" />
+            <End Role="OrdersFromClients" EntitySet="OrdersFromClients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersFromClients_Petrol" Association="Self.FK_OrdersFromClients_Petrol">
+            <End Role="Petrol" EntitySet="Petrols" />
+            <End Role="OrdersFromClients" EntitySet="OrdersFromClients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersFromSuppliers_Suppliers" Association="Self.FK_OrdersFromSuppliers_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="OrdersFromSuppliers" EntitySet="OrdersFromSuppliers" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="АЗСModel.User" />
+          <AssociationSet Name="FK_OrdersFromClients_Users" Association="АЗСModel.FK_OrdersFromClients_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="OrdersFromClient" EntitySet="OrdersFromClients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersFromSuppliers_Users" Association="АЗСModel.FK_OrdersFromSuppliers_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="OrdersFromSupplier" EntitySet="OrdersFromSuppliers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="АЗСModel.FK_Users_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OrdersFromClients" Relationship="АЗСModel.FK_OrdersFromClients_Users" FromRole="User" ToRole="OrdersFromClient" />
+          <NavigationProperty Name="OrdersFromSuppliers" Relationship="АЗСModel.FK_OrdersFromSuppliers_Users" FromRole="User" ToRole="OrdersFromSupplier" />
+          <NavigationProperty Name="Role" Relationship="АЗСModel.FK_Users_Roles" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_OrdersFromClients_Users">
+          <End Type="АЗСModel.User" Role="User" Multiplicity="1" />
+          <End Type="АЗСModel.OrdersFromClient" Role="OrdersFromClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="OrdersFromClient">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersFromSuppliers_Users">
+          <End Type="АЗСModel.User" Role="User" Multiplicity="1" />
+          <End Type="АЗСModel.OrdersFromSupplier" Role="OrdersFromSupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="OrdersFromSupplier">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Type="АЗСModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="АЗСModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IdRole" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="АЗСModelStoreContainer" CdmEntityContainer="АЗСEntities">
+          <EntitySetMapping Name="DetailsOrdersSupplies">
+            <EntityTypeMapping TypeName="АЗСModel.DetailsOrdersSupply">
+              <MappingFragment StoreEntitySet="DetailsOrdersSupplies">
+                <ScalarProperty Name="IdDetailOrder" ColumnName="IdDetailOrder" />
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+                <ScalarProperty Name="IdPetrol" ColumnName="IdPetrol" />
+                <ScalarProperty Name="PetrolCount" ColumnName="PetrolCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GasStations">
+            <EntityTypeMapping TypeName="АЗСModel.GasStation">
+              <MappingFragment StoreEntitySet="GasStation">
+                <ScalarProperty Name="IdGasStation" ColumnName="IdGasStation" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CountPetrol" ColumnName="CountPetrol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdersFromClients">
+            <EntityTypeMapping TypeName="АЗСModel.OrdersFromClient">
+              <MappingFragment StoreEntitySet="OrdersFromClients">
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="IdPetrol" ColumnName="IdPetrol" />
+                <ScalarProperty Name="CountPetrol" ColumnName="CountPetrol" />
+                <ScalarProperty Name="IdGasStation" ColumnName="IdGasStation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdersFromSuppliers">
+            <EntityTypeMapping TypeName="АЗСModel.OrdersFromSupplier">
+              <MappingFragment StoreEntitySet="OrdersFromSuppliers">
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+                <ScalarProperty Name="IdSupplier" ColumnName="IdSupplier" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Petrols">
+            <EntityTypeMapping TypeName="АЗСModel.Petrol">
+              <MappingFragment StoreEntitySet="Petrol">
+                <ScalarProperty Name="IdPetrol" ColumnName="IdPetrol" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="АЗСModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="АЗСModel.Supplier">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="IdSupplier" ColumnName="IdSupplier" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="АЗСModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

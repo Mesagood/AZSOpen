@@ -1,0 +1,30 @@
+﻿<Window x:Class="AZS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AZS"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="300" Width="400" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Label Margin="160,11,160,0">Логин</Label>
+        <TextBox Grid.Row="1" Margin="30,10,30,20" x:Name="Log"></TextBox>
+        
+        <Label Margin="160,0,139,0" Grid.Row="2">Пароль</Label>
+        <PasswordBox Grid.Row="3" Margin="30,10,30,20" x:Name="Pass"></PasswordBox>
+
+        <Button Grid.Row="4" FontSize="18" Name="BtnSingIn" Click="BtnSingIn_Click" Margin="200,9,30,5">Вход</Button>
+        <Button Grid.Row="4" FontSize="18" Name="BtnExit" Click="BtnExit_Click" Margin="30,9,200,5">Выход</Button>
+    </Grid>
+</Window>
